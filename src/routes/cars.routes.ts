@@ -13,4 +13,8 @@ route.post('/cars', (req: Request, res: Response, next: NextFunction) => (
   carsController.create(req, res, next)
 ));
 
+route.get('/cars', (req: Request, res: Response, next: NextFunction) => (
+  carsController.read(req, res, next)
+));
+
 export default route;

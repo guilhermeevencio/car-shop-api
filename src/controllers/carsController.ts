@@ -19,4 +19,17 @@ export default class CarsController {
       next(error);
     }
   }
+
+  public async read(
+    _req: Request,
+    res: Response<ICar[]>,
+    next: NextFunction,
+  ) {
+    try {
+      const results = await this._service.read();
+      return res.status(200).json(results);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
