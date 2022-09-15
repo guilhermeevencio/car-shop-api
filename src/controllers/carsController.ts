@@ -10,9 +10,7 @@ export default class CarsController {
     res: Response<ICar>,
     next: NextFunction,
   ) {
-    try {
-      console.log(req.body);
-    
+    try {    
       const results = await this._service.create(req.body);
       return res.status(201).json(results);
     } catch (error) {

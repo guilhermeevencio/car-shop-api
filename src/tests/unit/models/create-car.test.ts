@@ -22,7 +22,7 @@ describe('Car Model', () => {
     expect(newCar).to.be.deep.equal(carMockWithId);
   });
 
-  it('Buscando carros', async () => {
+  it('Buscando todos os carros', async () => {
     const results = await carModel.read();
     expect(results).to.deep.equal([carMockWithId])
   });

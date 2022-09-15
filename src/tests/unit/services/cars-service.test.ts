@@ -13,15 +13,21 @@ describe('Create Car', () => {
 
   before(async () => {
     sinon.stub(Model, 'create').resolves(carMockWithId);
+    sinon.stub(Model, 'find').resolves([carMockWithId]);
   });
 
   after(()=>{
     sinon.restore();
   })
 
-  it('Sucess', async () => {
+  it('Criando um carro', async () => {
     const carCreated = await carsService.create(carMock);
     expect(carCreated).to.be.deep.equal(carMockWithId);
+  });
+
+  it('Buscando todos os carros', async () => {
+    const carCreated = await carsService.read();
+    expect(carCreated).to.be.deep.equal([carMockWithId]);
   });
 
   // it('Failure', async () => {
