@@ -1,4 +1,4 @@
-import { isValidObjectId, Model } from 'mongoose';
+import { isValidObjectId, Model, UpdateQuery } from 'mongoose';
 import CustomError from '../errors/customError';
 import { IModel } from '../interfaces/IModel';
 
@@ -23,10 +23,11 @@ abstract class MongoModel<T> implements IModel<T> {
   }
 
   public async update(_id: string, obj: T): Promise<T | null> {
-    if (!isValidObjectId(_id)) throw new Error('deu ruim');
+    if (!isValidObjectId(_id)) throw new CustomError('Id must have 24 hexadecimal characters', 400);
+
     return this._model.findByIdAndUpdate(
       { _id },
-      { obj },
+      { ...obj } as UpdateQuery<T>,
       { new: true },
     );
   }

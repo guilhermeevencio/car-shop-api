@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import CustomError from '../errors/customError';
 import { ICar } from '../interfaces/ICar';
 import { IService } from '../interfaces/IService';
 
@@ -28,5 +29,15 @@ export default class CarsController {
     const { id } = req.params;
     const result = await this._service.readOne(id);
     return res.status(200).json(result);
+  }
+
+  public async update(
+    req: Request,
+    res: Response<ICar>,
+  ) {
+    const { id } = req.params;
+    if (!req.body) throw new CustomError('send new car info', 400);
+    const result = await this._service.update(id, req.body);
+    return res.status(200).json(result as ICar);
   }
 }

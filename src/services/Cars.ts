@@ -32,6 +32,8 @@ export default class CarsService implements IService<ICar> {
     if (!parsed.success) {
       throw parsed.error;
     }
+    await this.readOne(_id);
+
     return this._car.update(_id, obj);
   }
 
