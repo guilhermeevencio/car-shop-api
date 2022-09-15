@@ -8,13 +8,14 @@ import { ZodError } from 'zod';
 import { ICar } from '../../../interfaces/ICar';
 const { expect } = chai;
 
-describe('Create Car', () => {
+describe('Car Service', () => {
   const carModel = new Cars();
   const carsService = new CarsService(carModel);
 
   before(async () => {
     sinon.stub(Model, 'create').resolves(carMockWithId);
     sinon.stub(Model, 'find').resolves([carMockWithId]);
+    sinon.stub(Model, 'findById').resolves(carMockWithId);
   });
 
   after(()=>{
@@ -31,7 +32,7 @@ describe('Create Car', () => {
     expect(carCreated).to.be.deep.equal([carMockWithId]);
   });
 
-  it('Retorna erro caso não sejam passados os dados corretos', async () => {
+  it('Retorna erro caso não sejam passados os dados corretos ao criar um carro.', async () => {
     let error;
 
     try {
@@ -42,5 +43,10 @@ describe('Create Car', () => {
 
     expect(error).to.be.instanceOf(ZodError)
   })
+
+  it('Buscando um carro por Id', async () => {
+    const carCreated = await carsService.readOne(carMockWithId._id);
+    expect(carCreated).to.be.deep.equal(carMockWithId);
+  });
 
 });
