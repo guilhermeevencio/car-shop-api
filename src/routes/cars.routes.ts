@@ -17,4 +17,8 @@ route.get('/cars', (req: Request, res: Response) => (
   carsController.read(req, res)
 ));
 
+route.get('/cars/:id', (req: Request, res: Response) => (
+  carsController.readOne(req, res)
+));
+
 export default route;

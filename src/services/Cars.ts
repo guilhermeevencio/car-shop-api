@@ -1,6 +1,7 @@
 import { IService } from '../interfaces/IService';
 import carZodSchema, { ICar } from '../interfaces/ICar';
 import { IModel } from '../interfaces/IModel';
+import CustomError from '../errors/customError';
 
 export default class CarsService implements IService<ICar> {
   private _car: IModel<ICar>;
@@ -17,7 +18,7 @@ export default class CarsService implements IService<ICar> {
 
   public async readOne(_id: string): Promise<ICar> {
     const car = await this._car.readOne(_id);
-    if (!car) throw new Error('Entity not found');
+    if (!car) throw new CustomError('Object not found', 404);
     return car;
   }
 

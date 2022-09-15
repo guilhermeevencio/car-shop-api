@@ -1,5 +1,6 @@
 import { ErrorRequestHandler } from 'express';
 import { ZodError } from 'zod';
+import CustomError from '../errors/customError';
 
 const errorHandler: ErrorRequestHandler = (
   err: Error | ZodError,
@@ -11,7 +12,11 @@ const errorHandler: ErrorRequestHandler = (
     return res.status(400).json({ message: err.issues });
   }
 
-  return res.status(500).json({ message: 'internal error' });
+  if (err instanceof CustomError) {
+    return res.status(err.status).json({ error: err.message });
+  }
+
+  return res.status(500).json({ error: 'internal error' });
 };
 
 export default errorHandler;

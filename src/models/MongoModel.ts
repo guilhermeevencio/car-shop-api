@@ -1,4 +1,5 @@
 import { isValidObjectId, Model } from 'mongoose';
+import CustomError from '../errors/customError';
 import { IModel } from '../interfaces/IModel';
 
 abstract class MongoModel<T> implements IModel<T> {
@@ -17,7 +18,7 @@ abstract class MongoModel<T> implements IModel<T> {
   }
 
   public async readOne(id: string): Promise<T | null> {
-    if (!isValidObjectId(id)) throw new Error('deu ruim');
+    if (!isValidObjectId(id)) throw new CustomError('Id must have 24 hexadecimal characters', 400);
     return this._model.findById(id);
   }
 
