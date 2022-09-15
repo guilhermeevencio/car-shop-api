@@ -30,14 +30,14 @@ describe('Car Controller', () => {
   })
 
   it('Criando um carro', async () => {
-    await carController.create(req, res, next);
+    await carController.create(req, res);
 
     expect((res.status as sinon.SinonStub).calledWith(201)).to.be.true;
     expect((res.json as sinon.SinonStub).calledWith(carMock)).to.be.true;
   });
 
   it('Busca todos os carros', async () => {
-    await carController.read(req, res, next);
+    await carController.read(req, res);
 
     expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
     expect((res.json as sinon.SinonStub).calledWith([carMock])).to.be.true;

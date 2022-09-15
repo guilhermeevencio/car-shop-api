@@ -5,6 +5,7 @@ import CarsService from '../../../services/Cars';
 import { Model } from 'mongoose';
 import { carMock, carMockWithId } from '../mocks/carMocks';
 import { ZodError } from 'zod';
+import { ICar } from '../../../interfaces/ICar';
 const { expect } = chai;
 
 describe('Create Car', () => {
@@ -30,16 +31,16 @@ describe('Create Car', () => {
     expect(carCreated).to.be.deep.equal([carMockWithId]);
   });
 
-  // it('Failure', async () => {
-  //   let error;
+  it('Retorna erro caso não sejam passados os dados corretos', async () => {
+    let error;
 
-  //   try {
-  //     await carsService.create()
-  //   } catch (e) {
-  //     error = e
-  //   }
+    try {
+      await carsService.create({} as ICar)
+    } catch (e) {
+      error = e
+    }
 
-  //   expect(error).to.be.instanceOf(ZodError)
-  // })
+    expect(error).to.be.instanceOf(ZodError)
+  })
 
 });
