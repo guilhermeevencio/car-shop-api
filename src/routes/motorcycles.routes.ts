@@ -9,23 +9,25 @@ const motorcyclesModel = new Motorcycles();
 const motorcyclesService = new MotorcyclesService(motorcyclesModel);
 const motorcyclesController = new MotorcyclesController(motorcyclesService);
 
-motorcyclesRoute.post('/motorcycles', (req: Request, res: Response) => (
+const MOTORCYCLE_BASE_URL = '/motorcycles';
+
+motorcyclesRoute.post(MOTORCYCLE_BASE_URL, (req: Request, res: Response) => (
   motorcyclesController.create(req, res)
 ));
 
-motorcyclesRoute.get('/motorcycles', (req: Request, res: Response) => (
+motorcyclesRoute.get(MOTORCYCLE_BASE_URL, (req: Request, res: Response) => (
   motorcyclesController.read(req, res)
 ));
 
-motorcyclesRoute.get('/motorcycles/:id', (req: Request, res: Response) => (
+motorcyclesRoute.get(`${MOTORCYCLE_BASE_URL}/:id`, (req: Request, res: Response) => (
   motorcyclesController.readOne(req, res)
 ));
 
-motorcyclesRoute.put('/motorcycles/:id', (req: Request, res: Response) => (
+motorcyclesRoute.put(`${MOTORCYCLE_BASE_URL}/:id`, (req: Request, res: Response) => (
   motorcyclesController.update(req, res)
 ));
 
-motorcyclesRoute.delete('/motorcycles/:id', (req: Request, res: Response) => (
+motorcyclesRoute.delete(`${MOTORCYCLE_BASE_URL}/:id`, (req: Request, res: Response) => (
   motorcyclesController.delete(req, res)
 ));
 
