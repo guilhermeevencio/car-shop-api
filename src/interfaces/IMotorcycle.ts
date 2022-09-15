@@ -7,3 +7,5 @@ const motorcycleZodSchema = z.intersection(vehicleZodSchema, z.object({
 }));
 
 export type IMotorcycle = z.infer<typeof motorcycleZodSchema>;
+
+export default motorcycleZodSchema;
