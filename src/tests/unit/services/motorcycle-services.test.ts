@@ -8,7 +8,7 @@ import { ZodError } from 'zod';
 import { IMotorcycle } from '../../../interfaces/IMotorcycle';
 const { expect } = chai;
 
-describe('Car Service', () => {
+describe('Motorcycle Service', () => {
   const motorcycleModel = new Motorcycles();
   const motorcyclesService = new MotorcycleService(motorcycleModel);
 
