@@ -1,28 +1,28 @@
 import * as sinon from 'sinon';
 import chai from 'chai';
-import Cars from '../../../models/Cars';
-import CarsService from '../../../services/Cars';
-import CarsController from '../../../controllers/carsController';
+import Motorcycles from '../../../models/Motorcycles';
+import MotorcyclesService from '../../../services/Motorcycles';
+import MotorcyclesController from '../../../controllers/motorcyclesController';
 import { NextFunction, Request, Response } from 'express';
-import { carMock, carMockWithId } from '../mocks/carMocks';
-import { ICar } from '../../../interfaces/ICar';
+import { motorcycleMock, motorcycleMockWithId } from '../mocks/motorCycleMocks';
+import { IMotorcycle } from '../../../interfaces/IMotorcycle';
 const { expect } = chai;
 
-describe('Car Controller', () => {
-  const carModel = new Cars();
-  const carsService = new CarsService(carModel);
-  const carController = new CarsController(carsService);
+describe('Motorcycle Controller', () => {
+  const motorcyclesModel = new Motorcycles();
+  const motorcyclesService = new MotorcyclesService(motorcyclesModel);
+  const motorcyclesController = new MotorcyclesController(motorcyclesService);
 
   const req = {} as Request;
   const res = {} as Response;
   const next = {} as NextFunction;
 
   before(async () => {
-    sinon.stub(carsService, 'create').resolves(carMockWithId);
-    sinon.stub(carsService, 'read').resolves([carMockWithId]);
-    sinon.stub(carsService, 'readOne').resolves(carMockWithId);
-    sinon.stub(carsService, 'update').resolves(carMockWithId);
-    sinon.stub(carsService, 'delete').resolves(carMockWithId);
+    sinon.stub(motorcyclesService, 'create').resolves(motorcycleMockWithId);
+    sinon.stub(motorcyclesService, 'read').resolves([motorcycleMockWithId]);
+    sinon.stub(motorcyclesService, 'readOne').resolves(motorcycleMockWithId);
+    sinon.stub(motorcyclesService, 'update').resolves(motorcycleMockWithId);
+    sinon.stub(motorcyclesService, 'delete').resolves(motorcycleMockWithId);
 
     res.status = sinon.stub().returns(res);
     res.json = sinon.stub().returns(res);
@@ -32,40 +32,40 @@ describe('Car Controller', () => {
     sinon.restore();
   })
 
-  it('Criando um carro', async () => {
-    await carController.create(req, res);
+  it('Criando uma moto', async () => {
+    await motorcyclesController.create(req, res);
 
     expect((res.status as sinon.SinonStub).calledWith(201)).to.be.true;
-    expect((res.json as sinon.SinonStub).calledWith(carMockWithId)).to.be.true;
+    expect((res.json as sinon.SinonStub).calledWith(motorcycleMockWithId)).to.be.true;
   });
 
-  it('Busca todos os carros', async () => {
-    await carController.read(req, res);
+  it('Busca todas as motos', async () => {
+    await motorcyclesController.read(req, res);
 
     expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
-    expect((res.json as sinon.SinonStub).calledWith([carMockWithId])).to.be.true;
+    expect((res.json as sinon.SinonStub).calledWith([motorcycleMockWithId])).to.be.true;
   })
 
-  it('Busca um carro pelo Id', async () => {
-    req.params = { id: carMockWithId._id };
-    await carController.readOne(req, res);
+  it('Busca uma moto pelo Id', async () => {
+    req.params = { id: motorcycleMockWithId._id };
+    await motorcyclesController.readOne(req, res);
 
     expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
-    expect((res.json as sinon.SinonStub).calledWith(carMockWithId)).to.be.true;
+    expect((res.json as sinon.SinonStub).calledWith(motorcycleMockWithId)).to.be.true;
   })
 
-  it('Atualizando um carro', async () => {
-    req.params = { id: carMockWithId._id };
-    req.body = carMock
-    await carController.update(req, res);
+  it('Atualizando uma moto', async () => {
+    req.params = { id: motorcycleMockWithId._id };
+    req.body = motorcycleMock
+    await motorcyclesController.update(req, res);
 
     expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
-    expect((res.json as sinon.SinonStub).calledWith(carMockWithId)).to.be.true;
+    expect((res.json as sinon.SinonStub).calledWith(motorcycleMockWithId)).to.be.true;
   })
 
-  it('Removendo um carro', async () => {
-    req.params = { id: carMockWithId._id };
-    await carController.delete(req, res);
+  it('Removendo uma moto', async () => {
+    req.params = { id: motorcycleMockWithId._id };
+    await motorcyclesController.delete(req, res);
 
     expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
   })
