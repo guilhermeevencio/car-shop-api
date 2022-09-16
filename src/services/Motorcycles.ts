@@ -40,9 +40,6 @@ export default class MotorcyclesService implements IService<IMotorcycle> {
   public async delete(_id: string): Promise<IMotorcycle | null> {
     await this.readOne(_id);
     const deletedMotorCycle = this._motorcycle.delete(_id);
-    if (!deletedMotorCycle) {
-      throw new Error('Deu ruim');
-    }
     return deletedMotorCycle;
   }
 }

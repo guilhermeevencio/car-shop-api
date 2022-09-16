@@ -23,8 +23,6 @@ abstract class MongoModel<T> implements IModel<T> {
   }
 
   public async update(_id: string, obj: T): Promise<T | null> {
-    if (!isValidObjectId(_id)) throw new CustomError('Id must have 24 hexadecimal characters', 400);
-
     return this._model.findByIdAndUpdate(
       { _id },
       { ...obj } as UpdateQuery<T>,

@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import CustomError from '../errors/customError';
 import { IMotorcycle } from '../interfaces/IMotorcycle';
 import { IService } from '../interfaces/IService';
 
@@ -36,7 +35,6 @@ export default class MotorcyclesController {
     res: Response<IMotorcycle>,
   ) {
     const { id } = req.params;
-    if (!req.body) throw new CustomError('Send new motorcycle info', 400);
     const result = await this._service.update(id, req.body);
     return res.status(200).json(result as IMotorcycle);
   }
@@ -46,7 +44,6 @@ export default class MotorcyclesController {
     res: Response<IMotorcycle>,
   ) {
     const { id } = req.params;
-    if (!req.body) throw new CustomError('Send new motorcycle info', 400);
     const result = await this._service.delete(id);
     return res.status(204).json(result as IMotorcycle);
   }

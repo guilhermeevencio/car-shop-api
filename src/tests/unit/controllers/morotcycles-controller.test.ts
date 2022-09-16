@@ -67,7 +67,7 @@ describe('Motorcycle Controller', () => {
     req.params = { id: motorcycleMockWithId._id };
     await motorcyclesController.delete(req, res);
 
-    expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
+    expect((res.status as sinon.SinonStub).calledWith(204)).to.be.true;
   })
 
 });

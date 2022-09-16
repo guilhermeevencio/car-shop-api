@@ -6,21 +6,22 @@ import { Model } from 'mongoose';
 import { motorcycleMock, motorcycleMockWithId } from '../mocks/motorCycleMocks';
 import { ZodError } from 'zod';
 import { IMotorcycle } from '../../../interfaces/IMotorcycle';
+import CustomError from '../../../errors/customError';
 const { expect } = chai;
 
 describe('Motorcycle Service', () => {
   const motorcycleModel = new Motorcycles();
   const motorcyclesService = new MotorcycleService(motorcycleModel);
 
-  before(async () => {
-    sinon.stub(Model, 'create').resolves(motorcycleMockWithId);
-    sinon.stub(Model, 'find').resolves([motorcycleMockWithId]);
-    sinon.stub(Model, 'findById').resolves(motorcycleMockWithId);
-    sinon.stub(Model, 'findByIdAndUpdate').resolves(motorcycleMockWithId);
-    sinon.stub(Model, 'findByIdAndDelete').resolves(null);
+  beforeEach(() => {
+    sinon.stub(motorcycleModel, 'create').resolves(motorcycleMockWithId);
+    sinon.stub(motorcycleModel, 'read').resolves([motorcycleMockWithId]);
+    sinon.stub(motorcycleModel, 'readOne').resolves(motorcycleMockWithId);
+    sinon.stub(motorcycleModel, 'update').resolves(motorcycleMockWithId);
+    sinon.stub(motorcycleModel, 'delete').resolves(null);
   });
 
-  after(()=>{
+  afterEach(()=>{
     sinon.restore();
   })
 
@@ -42,8 +43,44 @@ describe('Motorcycle Service', () => {
     } catch (e) {
       error = e
     }
-
+    
     expect(error).to.be.instanceOf(ZodError)
+  })
+
+  it('Retorna erro caso não sejam passados os dados corretos ao editar um carro.', async () => {
+    let error;
+
+    try {
+      await motorcyclesService.update(motorcycleMockWithId._id, {} as IMotorcycle)
+    } catch (e) {
+      error = e
+      expect(error).to.be.instanceOf(ZodError)
+    }
+
+  })
+
+  it('Retorna erro caso não sejam passados um id inválido ao editar um carro.', async () => {
+    let error;
+    try {
+      await motorcyclesService.update('WrongId', motorcycleMock)
+    } catch (e) {
+      error = e
+      expect(error).to.be.instanceOf(CustomError)
+    }   
+  })
+
+  it('Retorna erro caso não sejam passados o id correto ao editar uma moto.', async () => {
+    let error;
+    sinon.restore();
+    sinon.stub(motorcycleModel, 'readOne').resolves(null);
+
+    try {
+      await motorcyclesService.update('WrongId', motorcycleMock)
+    } catch (e) {
+      error = e
+    }
+    
+    expect(error).to.be.instanceOf(CustomError)
   })
 
   it('Buscando uma moto por Id', async () => {

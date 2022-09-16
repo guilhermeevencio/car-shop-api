@@ -40,9 +40,6 @@ export default class CarsService implements IService<ICar> {
   public async delete(_id: string): Promise<ICar | null> {
     await this.readOne(_id);
     const deletedCar = this._car.delete(_id);
-    if (!deletedCar) {
-      throw new Error('Deu ruim');
-    }
     return deletedCar;
   }
 }
