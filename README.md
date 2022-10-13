@@ -1,16 +1,25 @@
-# 🚧 README em construção 🚧
 
-<!-- Olá, Tryber!
+# Car Shop API
 
-Esse é apenas um arquivo inicial para o README do seu projeto.
+This application is a car store management api, where it is possible to register new vehicles, edit, remove and search for all registered vehicles.
 
-É essencial que você preencha esse documento por conta própria, ok?
+* The application was developed following the principles of __SOLID__ and __TDD__ (Test-Driven Development).
+* MongoDB was used as a database.
+* The Back-End was developed using Node.js with Typescript.
+* The unit tests were developed using Jest, Mocha, Chai and Sinon.
+* For data validation, the ZOD library was used.
+* Mongoose was used to integrate Node.js with MongoDB.
+* Eslint was used to standardize code writing.
 
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
+## To run the code, follow the commands below
 
-⚠️ IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
 
--->
+1. `npm install`
+2. `docker compose up -d`
+3. `docker exec -it car_shop bash`
+4. `npm run dev`
+
+
+## To run the tests, run the commands below
+1. `npm run test:dev`
+2. `npm run test:coverage`
